@@ -169,7 +169,7 @@ class Tools:
 				<button
 					class="flex space-x-1"
 					on:click={() => {
-						goto('/workspace/tools');
+						goto('/sensai/workspace/tools');
 					}}
 					type="button"
 				>

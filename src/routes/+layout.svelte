@@ -111,7 +111,7 @@
 
 			if ($config) {
 				const _socket = io(`${WEBUI_BASE_URL}` || undefined, {
-					path: '/ws/socket.io',
+					path: '/sensai/ws/socket.io',
 					auth: { token: localStorage.token }
 				});
 
@@ -144,19 +144,19 @@
 					} else {
 						// Redirect Invalid Session User to /auth Page
 						localStorage.removeItem('token');
-						await goto('/auth');
+						await goto('/sensai/auth');
 					}
 				} else {
 					// Don't redirect if we're already on the auth page
 					// Needed because we pass in tokens from OAuth logins via URL fragments
 					if ($page.url.pathname !== '/auth') {
-						await goto('/auth');
+						await goto('/sensai/auth');
 					}
 				}
 			}
 		} else {
 			// Redirect to /error when Backend Not Detected
-			await goto(`/error`);
+			await goto(`/sensai/error`);
 		}
 
 		await tick();

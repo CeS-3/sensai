@@ -213,7 +213,7 @@
 
 	onMount(async () => {
 		if ($user?.role !== 'admin') {
-			await goto('/');
+			await goto('/sensai/');
 		}
 
 		if ($settings?.models) {

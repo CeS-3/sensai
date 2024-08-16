@@ -28,7 +28,7 @@
 
 			$socket.emit('user-join', { auth: { token: sessionUser.token } });
 			await user.set(sessionUser);
-			goto('/');
+			goto('/sensai/');
 		}
 	};
 
@@ -86,7 +86,7 @@
 
 	onMount(async () => {
 		if ($user !== undefined) {
-			await goto('/');
+			await goto('/sensai/');
 		}
 		await checkOauthCallback();
 		loaded = true;

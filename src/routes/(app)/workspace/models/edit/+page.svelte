@@ -118,7 +118,7 @@
 		if (res) {
 			await models.set(await getModels(localStorage.token));
 			toast.success($i18n.t('Model updated successfully'));
-			await goto('/workspace/models');
+			await goto('/sensai/workspace/models');
 		}
 
 		loading = false;
@@ -185,10 +185,10 @@
 
 				console.log(model);
 			} else {
-				goto('/workspace/models');
+				goto('/sensai/workspace/models');
 			}
 		} else {
-			goto('/workspace/models');
+			goto('/sensai/workspace/models');
 		}
 	});
 </script>
@@ -262,7 +262,7 @@
 	<button
 		class="flex space-x-1"
 		on:click={() => {
-			goto('/workspace/models');
+			goto('/sensai/workspace/models');
 		}}
 	>
 		<div class=" self-center">

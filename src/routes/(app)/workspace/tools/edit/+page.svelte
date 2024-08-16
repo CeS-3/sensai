@@ -46,7 +46,7 @@
 			toast.success($i18n.t('Tool updated successfully'));
 			tools.set(await getTools(localStorage.token));
 
-			// await goto('/workspace/tools');
+			// await goto('/sensai/workspace/tools');
 		}
 	};
 
@@ -57,7 +57,7 @@
 		if (id) {
 			tool = await getToolById(localStorage.token, id).catch((error) => {
 				toast.error(error);
-				goto('/workspace/tools');
+				goto('/sensai/workspace/tools');
 				return null;
 			});
 

@@ -2,7 +2,7 @@
 .DS_Store
 docs
 kubernetes
-node_modules
+# node_modules
 /.svelte-kit
 /package
 .env

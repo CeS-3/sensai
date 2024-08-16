@@ -14,7 +14,10 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: 'index.html'
-		})
+		}),
+		paths: {
+			base: '/sensai',  // 设置基础路径为 /sensai
+		  }
 	},
 	onwarn: (warning, handler) => {
 		const { code, _ } = warning;

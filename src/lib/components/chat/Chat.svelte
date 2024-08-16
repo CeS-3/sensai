@@ -136,7 +136,7 @@
 				const chatInput = document.getElementById('chat-textarea');
 				chatInput?.focus();
 			} else {
-				await goto('/');
+				await goto('/sensai/');
 			}
 		})();
 	}
@@ -239,7 +239,7 @@
 			});
 		} else {
 			if (!($settings.saveChatHistory ?? true)) {
-				await goto('/');
+				await goto('/sensai/');
 			}
 		}
 
@@ -313,7 +313,7 @@
 	const loadChat = async () => {
 		chatId.set(chatIdProp);
 		chat = await getChatById(localStorage.token, $chatId).catch(async (error) => {
-			await goto('/');
+			await goto('/sensai/');
 			return null;
 		});
 

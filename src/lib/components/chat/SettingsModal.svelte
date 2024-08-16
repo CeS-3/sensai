@@ -246,7 +246,7 @@
 							? 'bg-gray-200 dark:bg-gray-800'
 							: ' hover:bg-gray-100 dark:hover:bg-gray-850'}"
 						on:click={async () => {
-							await goto('/admin/settings');
+							await goto('/sensai/admin/settings');
 							show = false;
 						}}
 					>

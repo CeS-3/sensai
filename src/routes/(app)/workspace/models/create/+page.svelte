@@ -157,7 +157,7 @@
 			if (res) {
 				await models.set(await getModels(localStorage.token));
 				toast.success($i18n.t('Model created successfully!'));
-				await goto('/workspace/models');
+				await goto('/sensai/workspace/models');
 			}
 		}
 
@@ -334,7 +334,7 @@
 	<button
 		class="flex space-x-1"
 		on:click={() => {
-			goto('/workspace/models');
+			goto('/sensai/workspace/models');
 		}}
 	>
 		<div class=" self-center">
