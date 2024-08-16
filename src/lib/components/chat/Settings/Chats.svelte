@@ -75,7 +75,7 @@
 	};
 
 	const archiveAllChatsHandler = async () => {
-		await goto('/');
+		await goto('/sensai/');
 		await archiveAllChats(localStorage.token).catch((error) => {
 			toast.error(error);
 		});
@@ -86,7 +86,7 @@
 	};
 
 	const deleteAllChatsHandler = async () => {
-		await goto('/');
+		await goto('/sensai/');
 		await deleteAllChats(localStorage.token).catch((error) => {
 			toast.error(error);
 		});
@@ -101,7 +101,7 @@
 		console.log(saveChatHistory);
 
 		if (saveChatHistory === false) {
-			await goto('/');
+			await goto('/sensai/');
 		}
 		saveSettings({ saveChatHistory: saveChatHistory });
 	};

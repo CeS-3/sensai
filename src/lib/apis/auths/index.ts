@@ -150,6 +150,9 @@ export const userSignUp = async (
 		},
 		credentials: 'include',
 		body: JSON.stringify({
+			name: '',
+			email: '',
+			password: '',
 			profile_image_url: profile_image_url
 		})
 	})

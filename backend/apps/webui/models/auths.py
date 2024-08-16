@@ -57,7 +57,7 @@ class UserResponse(BaseModel):
     profile_image_url: str
 
 
-class SigninResponse(Token, UserResponse):
+class SigninResponse(UserResponse):
     pass
 
 

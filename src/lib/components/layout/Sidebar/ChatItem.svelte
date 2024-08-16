@@ -54,7 +54,7 @@
 		});
 
 		if (res) {
-			goto(`/c/${res.id}`);
+			goto(`/sensai/c/${res.id}`);
 
 			currentChatPage.set(1);
 			await chats.set(await getChatList(localStorage.token, $currentChatPage));
@@ -99,7 +99,7 @@
 				: selected
 				? 'bg-gray-100 dark:bg-gray-950'
 				: ' group-hover:bg-gray-100 dark:group-hover:bg-gray-950'}  whitespace-nowrap text-ellipsis"
-			href="/c/{chat.id}"
+			href="/sensai/c/{chat.id}"
 			on:click={() => {
 				dispatch('select');
 

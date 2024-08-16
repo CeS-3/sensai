@@ -23,10 +23,11 @@ ARG BUILD_HASH
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
-
+# RUN npm ci
+COPY node_modules ./node_modules
 COPY . .
 ENV APP_BUILD_HASH=${BUILD_HASH}
+ENV NODE_OPTIONS=--max_old_space_size=8192
 RUN npm run build
 
 ######## WebUI backend ########
@@ -91,7 +92,11 @@ RUN mkdir -p $HOME/.cache/chroma
 RUN echo -n 00000000-0000-0000-0000-000000000000 > $HOME/.cache/chroma/telemetry_user_id
 
 # Make sure the user has access to the app and root directory
+RUN mkdir -p /app/backend/data/ && chown -R $UID:$GID /app/backend/data/
 RUN chown -R $UID:$GID /app $HOME
+
+# Replace the sources.list file with the desired mirror
+RUN echo "deb http://mirrors.hust.edu.cn/debian/ bookworm main" > /etc/apt/sources.list
 
 RUN if [ "$USE_OLLAMA" = "true" ]; then \
     apt-get update && \
@@ -119,20 +124,23 @@ RUN if [ "$USE_OLLAMA" = "true" ]; then \
 
 # install python dependencies
 COPY --chown=$UID:$GID ./backend/requirements.txt ./requirements.txt
-
-RUN pip3 install uv && \
+# ENV UV_HTTP_TIMEOUT=240  
+RUN pip3 install uv -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     if [ "$USE_CUDA" = "true" ]; then \
     # If you use CUDA the whisper and embedding model will be downloaded on first use
     pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/$USE_CUDA_DOCKER_VER --no-cache-dir && \
-    uv pip install --system -r requirements.txt --no-cache-dir && \
+    uv pip install --system -r requirements.txt --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['RAG_EMBEDDING_MODEL'], device='cpu')" && \
     python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])"; \
     else \
     pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu --no-cache-dir && \
-    uv pip install --system -r requirements.txt --no-cache-dir && \
+    uv pip install --system -r requirements.txt --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['RAG_EMBEDDING_MODEL'], device='cpu')" && \
     python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])"; \
     fi; \
+    # 添加检查步骤，确保 uvicorn 和 fastapi 已正确安装
+    pip show uvicorn || { echo 'uvicorn 未安装'; exit 1; } && \
+    pip show fastapi || { echo 'fastapi 未安装'; exit 1; } && \
     chown -R $UID:$GID /app/backend/data/
 
 

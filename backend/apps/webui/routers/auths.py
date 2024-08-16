@@ -27,7 +27,6 @@ from utils.utils import (
     get_password_hash,
     get_current_user,
     get_admin_user,
-    create_token,
     create_api_key,
 )
 from utils.misc import parse_duration, validate_email_format
@@ -229,10 +228,7 @@ async def add_user(form_data: AddUserForm, user=Depends(get_admin_user)):
         )
 
         if user:
-            token = create_token(data={"id": user.id})
             return {
-                "token": token,
-                "token_type": "Bearer",
                 "id": user.id,
                 "email": user.email,
                 "name": user.name,

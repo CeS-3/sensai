@@ -71,7 +71,7 @@
 
 	onMount(async () => {
 		if ($user?.role !== 'admin') {
-			await goto('/');
+			await goto('/sensai/');
 		} else {
 			users = await getUsers(localStorage.token);
 		}

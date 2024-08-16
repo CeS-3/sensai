@@ -21,12 +21,11 @@
 	const setSessionUser = async (sessionUser) => {
 		if (sessionUser) {
 			console.log(sessionUser);
-			if (sessionUser.token) {
-				localStorage.token = sessionUser.token;
-			}
+			toast.success($i18n.t(`You're now logged in.`));
 
 			$socket.emit('user-join', { auth: { token: sessionUser.token } });
 			await user.set(sessionUser);
+			goto('/sensai');
 		}
 	};
 
@@ -41,7 +40,7 @@
 	const signUpHandler = async () => {
 		const sessionUser = await userSignUp(generateInitialsImage(name)).catch(
 			(error) => {
-				toast.error(error);
+				console.error(error);
 				return null;
 			}
 		);
@@ -70,7 +69,7 @@
 		if (!token) {
 			return;
 		}
-		const sessionUser = await getSessionUser(token).catch((error) => {
+		const sessionUser = await getSessionUser().catch((error) => {
 			toast.error(error);
 			return null;
 		});
@@ -83,10 +82,9 @@
 
 	onMount(async () => {
 		if ($user !== undefined) {
-			await goto('/');
+			await goto('/sensai/');
 		}
-		await checkOauthCallback();
-		loaded = true;
+		loaded = false;
 		await signInHandler();
 	});
 </script>
