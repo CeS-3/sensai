@@ -7,8 +7,8 @@ export const addNewModel = async (token: string, model: object) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify(model)
 	})
@@ -36,8 +36,8 @@ export const getModelInfos = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -70,8 +70,8 @@ export const getModelById = async (token: string, id: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -105,8 +105,8 @@ export const updateModelById = async (token: string, id: string, model: object) 
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify(model)
 	})
@@ -141,8 +141,8 @@ export const deleteModelById = async (token: string, id: string) => {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {

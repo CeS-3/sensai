@@ -21,28 +21,25 @@
 	const setSessionUser = async (sessionUser) => {
 		if (sessionUser) {
 			console.log(sessionUser);
-			toast.success($i18n.t(`You're now logged in.`));
 			if (sessionUser.token) {
 				localStorage.token = sessionUser.token;
 			}
 
 			$socket.emit('user-join', { auth: { token: sessionUser.token } });
 			await user.set(sessionUser);
-			goto('/');
 		}
 	};
 
 	const signInHandler = async () => {
-		const sessionUser = await userSignIn(email, password).catch((error) => {
-			toast.error(error);
-			return null;
+		const sessionUser = await userSignIn().catch((error) => {
+			signUpHandler();
 		});
 
 		await setSessionUser(sessionUser);
 	};
 
 	const signUpHandler = async () => {
-		const sessionUser = await userSignUp(name, email, password, generateInitialsImage(name)).catch(
+		const sessionUser = await userSignUp(generateInitialsImage(name)).catch(
 			(error) => {
 				toast.error(error);
 				return null;
@@ -90,9 +87,7 @@
 		}
 		await checkOauthCallback();
 		loaded = true;
-		if (($config?.features.auth_trusted_header ?? false) || $config?.features.auth === false) {
-			await signInHandler();
-		}
+		await signInHandler();
 	});
 </script>
 

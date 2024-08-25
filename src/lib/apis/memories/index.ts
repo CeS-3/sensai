@@ -7,8 +7,8 @@ export const getMemories = async (token: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -35,8 +35,8 @@ export const addNewMemory = async (token: string, content: string) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			content: content
@@ -66,8 +66,8 @@ export const updateMemoryById = async (token: string, id: string, content: strin
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			content: content
@@ -97,8 +97,8 @@ export const queryMemory = async (token: string, content: string) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			content: content
@@ -128,8 +128,8 @@ export const deleteMemoryById = async (token: string, id: string) => {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -160,8 +160,8 @@ export const deleteMemoriesByUserId = async (token: string) => {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {

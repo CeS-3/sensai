@@ -12,8 +12,8 @@ export const createNewPrompt = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			command: `/${command}`,
@@ -45,8 +45,8 @@ export const getPrompts = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -76,8 +76,8 @@ export const getPromptByCommand = async (token: string, command: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -113,8 +113,8 @@ export const updatePromptByCommand = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			command: `/${command}`,
@@ -152,8 +152,8 @@ export const deletePromptByCommand = async (token: string, command: string) => {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {

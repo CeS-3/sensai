@@ -131,28 +131,23 @@
 					USAGE_POOL.set(data['models']);
 				});
 
-				if (localStorage.token) {
-					// Get Session User Info
-					const sessionUser = await getSessionUser(localStorage.token).catch((error) => {
-						toast.error(error);
-						return null;
-					});
+				// Get Session User Info
+				const sessionUser = await getSessionUser().catch((error) => {
+					toast.error(error);
+					return null;
+				});
 
-					if (sessionUser) {
-						// Save Session User to Store
-						await user.set(sessionUser);
-					} else {
-						// Redirect Invalid Session User to /auth Page
-						localStorage.removeItem('token');
-						await goto('/auth');
-					}
+				if (sessionUser) {
+					// Save Session User to Store
+					await user.set(sessionUser);
 				} else {
-					// Don't redirect if we're already on the auth page
-					// Needed because we pass in tokens from OAuth logins via URL fragments
+					// Redirect Invalid Session User to /auth Page
+					// Don't redirect if we're already on th e auth page
 					if ($page.url.pathname !== '/auth') {
 						await goto('/auth');
 					}
 				}
+				
 			}
 		} else {
 			// Redirect to /error when Backend Not Detected

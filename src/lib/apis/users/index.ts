@@ -7,8 +7,8 @@ export const getUserPermissions = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/permissions/user`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -34,8 +34,8 @@ export const updateUserPermissions = async (token: string, permissions: object) 
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/permissions/user`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...permissions
@@ -64,8 +64,8 @@ export const updateUserRole = async (token: string, id: string, role: string) =>
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/update/role`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			id: id,
@@ -95,8 +95,8 @@ export const getUsers = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -121,8 +121,8 @@ export const getUserSettings = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/user/settings`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -148,8 +148,8 @@ export const updateUserSettings = async (token: string, settings: object) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/user/settings/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...settings
@@ -178,8 +178,8 @@ export const getUserById = async (token: string, userId: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/${userId}`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -204,8 +204,8 @@ export const getUserInfo = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/user/info`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -231,8 +231,8 @@ export const updateUserInfo = async (token: string, info: object) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/user/info/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...info
@@ -274,8 +274,8 @@ export const deleteUserById = async (token: string, userId: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/${userId}`, {
 		method: 'DELETE',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -308,8 +308,8 @@ export const updateUserById = async (token: string, userId: string, user: UserUp
 	const res = await fetch(`${WEBUI_API_BASE_URL}/users/${userId}/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			profile_image_url: user.profile_image_url,

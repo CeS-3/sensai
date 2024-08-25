@@ -14,8 +14,8 @@ export const createNewDoc = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			collection_name: collection_name,
@@ -49,8 +49,8 @@ export const getDocs = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -83,8 +83,8 @@ export const getDocByName = async (token: string, name: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -123,8 +123,8 @@ export const updateDocByName = async (token: string, name: string, form: DocUpda
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			name: form.name,
@@ -167,8 +167,8 @@ export const tagDocByName = async (token: string, name: string, form: TagDocForm
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			name: form.name,
@@ -206,8 +206,8 @@ export const deleteDocByName = async (token: string, name: string) => {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {

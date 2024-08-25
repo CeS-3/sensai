@@ -6,8 +6,8 @@ export const getRAGConfig = async (token: string) => {
 	const res = await fetch(`${RAG_API_BASE_URL}/config`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -56,8 +56,8 @@ export const updateRAGConfig = async (token: string, payload: RAGConfigForm) => 
 	const res = await fetch(`${RAG_API_BASE_URL}/config/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...payload
@@ -86,8 +86,8 @@ export const getRAGTemplate = async (token: string) => {
 	const res = await fetch(`${RAG_API_BASE_URL}/template`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -113,8 +113,8 @@ export const getQuerySettings = async (token: string) => {
 	const res = await fetch(`${RAG_API_BASE_URL}/query/settings`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -146,8 +146,8 @@ export const updateQuerySettings = async (token: string, settings: QuerySettings
 	const res = await fetch(`${RAG_API_BASE_URL}/query/settings/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...settings
@@ -177,8 +177,8 @@ export const processDocToVectorDB = async (token: string, file_id: string) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			file_id: file_id
@@ -212,7 +212,7 @@ export const uploadDocToVectorDB = async (token: string, collection_name: string
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			authorization: `Bearer ${token}`
+			
 		},
 		body: data
 	})
@@ -240,8 +240,8 @@ export const uploadWebToVectorDB = async (token: string, collection_name: string
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			url: url,
@@ -272,8 +272,8 @@ export const uploadYoutubeTranscriptionToVectorDB = async (token: string, url: s
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			url: url
@@ -308,8 +308,8 @@ export const queryDoc = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			collection_name: collection_name,
@@ -345,8 +345,8 @@ export const queryCollection = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			collection_names: collection_names,
@@ -377,7 +377,7 @@ export const scanDocs = async (token: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			authorization: `Bearer ${token}`
+			
 		}
 	})
 		.then(async (res) => {
@@ -403,7 +403,7 @@ export const resetUploadDir = async (token: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			authorization: `Bearer ${token}`
+			
 		}
 	})
 		.then(async (res) => {
@@ -429,7 +429,7 @@ export const resetVectorDB = async (token: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			authorization: `Bearer ${token}`
+			
 		}
 	})
 		.then(async (res) => {
@@ -454,8 +454,8 @@ export const getEmbeddingConfig = async (token: string) => {
 	const res = await fetch(`${RAG_API_BASE_URL}/embedding`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -493,8 +493,8 @@ export const updateEmbeddingConfig = async (token: string, payload: EmbeddingMod
 	const res = await fetch(`${RAG_API_BASE_URL}/embedding/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...payload
@@ -523,8 +523,8 @@ export const getRerankingConfig = async (token: string) => {
 	const res = await fetch(`${RAG_API_BASE_URL}/reranking`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -554,8 +554,8 @@ export const updateRerankingConfig = async (token: string, payload: RerankingMod
 	const res = await fetch(`${RAG_API_BASE_URL}/reranking/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...payload
@@ -588,8 +588,8 @@ export const runWebSearch = async (
 	const res = await fetch(`${RAG_API_BASE_URL}/web/search`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			query,

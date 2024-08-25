@@ -6,8 +6,8 @@ export const getAudioConfig = async (token: string) => {
 	const res = await fetch(`${AUDIO_API_BASE_URL}/config`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -40,8 +40,8 @@ export const updateAudioConfig = async (token: string, payload: OpenAIConfigForm
 	const res = await fetch(`${AUDIO_API_BASE_URL}/config/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			...payload
@@ -73,7 +73,7 @@ export const transcribeAudio = async (token: string, file: File) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			authorization: `Bearer ${token}`
+			
 		},
 		body: data
 	})
@@ -105,7 +105,6 @@ export const synthesizeOpenAISpeech = async (
 	const res = await fetch(`${AUDIO_API_BASE_URL}/speech`, {
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
@@ -138,8 +137,8 @@ export const getModels = async (token: string = '') => {
 	const res = await fetch(`${AUDIO_API_BASE_URL}/models`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -166,8 +165,8 @@ export const getVoices = async (token: string = '') => {
 	const res = await fetch(`${AUDIO_API_BASE_URL}/voices`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {

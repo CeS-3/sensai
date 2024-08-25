@@ -7,8 +7,8 @@ export const getImageGenerationConfig = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -43,8 +43,8 @@ export const updateImageGenerationConfig = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			engine,
@@ -79,8 +79,8 @@ export const getOpenAIConfig = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -111,8 +111,8 @@ export const updateOpenAIConfig = async (token: string = '', url: string, key: s
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			url: url,
@@ -147,8 +147,8 @@ export const getImageGenerationEngineUrls = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -179,8 +179,8 @@ export const updateImageGenerationEngineUrls = async (token: string = '', urls: 
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			...urls
@@ -214,8 +214,8 @@ export const getImageSize = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -246,8 +246,8 @@ export const updateImageSize = async (token: string = '', size: string) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			size: size
@@ -281,8 +281,8 @@ export const getImageSteps = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -313,8 +313,8 @@ export const updateImageSteps = async (token: string = '', steps: number) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({ steps })
 	})
@@ -346,8 +346,8 @@ export const getImageGenerationModels = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -378,8 +378,8 @@ export const getDefaultImageGenerationModel = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -410,8 +410,8 @@ export const updateDefaultImageGenerationModel = async (token: string = '', mode
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			model: model
@@ -445,8 +445,8 @@ export const imageGenerations = async (token: string = '', prompt: string) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			prompt: prompt

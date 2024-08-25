@@ -8,8 +8,8 @@ export const getOllamaConfig = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -40,8 +40,8 @@ export const updateOllamaConfig = async (token: string = '', enable_ollama_api: 
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			enable_ollama_api: enable_ollama_api
@@ -75,8 +75,8 @@ export const getOllamaUrls = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -107,8 +107,8 @@ export const updateOllamaUrls = async (token: string = '', urls: string[]) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			urls: urls
@@ -142,8 +142,8 @@ export const getOllamaVersion = async (token: string, urlIdx?: number) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -174,8 +174,8 @@ export const getOllamaModels = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -220,8 +220,8 @@ export const generateTitle = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			model: model,
@@ -263,8 +263,8 @@ export const generatePrompt = async (token: string = '', model: string, conversa
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			model: model,
@@ -298,8 +298,8 @@ export const generateEmbeddings = async (token: string = '', model: string, text
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			model: model,
@@ -324,8 +324,8 @@ export const generateTextCompletion = async (token: string = '', model: string, 
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			model: model,
@@ -353,8 +353,8 @@ export const generateChatCompletion = async (token: string = '', body: object) =
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify(body)
 	}).catch((err) => {
@@ -383,8 +383,8 @@ export const createModel = async (
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
+				'Content-Type': 'application/json'
+				
 			},
 			body: JSON.stringify({
 				name: tagName,
@@ -412,8 +412,8 @@ export const deleteModel = async (token: string, tagName: string, urlIdx: string
 			method: 'DELETE',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
+				'Content-Type': 'application/json'
+				
 			},
 			body: JSON.stringify({
 				name: tagName
@@ -455,8 +455,8 @@ export const pullModel = async (token: string, tagName: string, urlIdx: string |
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			name: tagName
@@ -490,8 +490,8 @@ export const downloadModel = async (
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
+				'Content-Type': 'application/json'
+				
 			},
 			body: JSON.stringify({
 				url: download_url
@@ -524,7 +524,7 @@ export const uploadModel = async (token: string, file: File, urlIdx: string | nu
 		{
 			method: 'POST',
 			headers: {
-				Authorization: `Bearer ${token}`
+				
 			},
 			body: formData
 		}
@@ -549,7 +549,7 @@ export const uploadModel = async (token: string, file: File, urlIdx: string | nu
 // 		method: 'POST',
 // 		headers: {
 // 			'Content-Type': 'text/event-stream',
-// 			Authorization: `Bearer ${token}`
+// 			
 // 		},
 // 		body: JSON.stringify({
 // 			name: tagName

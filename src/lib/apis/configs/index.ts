@@ -7,8 +7,8 @@ export const setDefaultModels = async (token: string, models: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/configs/default/models`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			models: models
@@ -37,8 +37,8 @@ export const setDefaultPromptSuggestions = async (token: string, promptSuggestio
 	const res = await fetch(`${WEBUI_API_BASE_URL}/configs/default/suggestions`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			suggestions: promptSuggestions
@@ -67,8 +67,8 @@ export const getBanners = async (token: string): Promise<Banner[]> => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/configs/banners`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -94,8 +94,8 @@ export const setBanners = async (token: string, banners: Banner[]) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/configs/banners`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			banners: banners

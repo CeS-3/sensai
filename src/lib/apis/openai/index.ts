@@ -9,8 +9,8 @@ export const getOpenAIConfig = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -41,8 +41,8 @@ export const updateOpenAIConfig = async (token: string = '', enable_openai_api: 
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			enable_openai_api: enable_openai_api
@@ -76,8 +76,8 @@ export const getOpenAIUrls = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -108,8 +108,8 @@ export const updateOpenAIUrls = async (token: string = '', urls: string[]) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			urls: urls
@@ -143,8 +143,8 @@ export const getOpenAIKeys = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -175,8 +175,8 @@ export const updateOpenAIKeys = async (token: string = '', keys: string[]) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			keys: keys
@@ -212,8 +212,8 @@ export const getOpenAIModels = async (token: string, urlIdx?: number) => {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				...(token && { authorization: `Bearer ${token}` })
+				'Content-Type': 'application/json'
+	
 			}
 		}
 	)
@@ -282,7 +282,6 @@ export const generateOpenAIChatCompletion = async (
 		signal: controller.signal,
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(body)
@@ -310,7 +309,6 @@ export const synthesizeOpenAISpeech = async (
 	const res = await fetch(`${OPENAI_API_BASE_URL}/audio/speech`, {
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
@@ -349,8 +347,8 @@ export const generateTitle = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			model: model,
@@ -407,8 +405,8 @@ export const generateSearchQuery = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			model: model,
