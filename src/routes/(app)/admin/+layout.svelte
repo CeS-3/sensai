@@ -12,7 +12,7 @@
 
 	onMount(async () => {
 		if ($user?.role !== 'admin') {
-			await goto('/');
+			await goto('/sensai/');
 		}
 		loaded = true;
 	});
@@ -57,21 +57,21 @@
 					class="min-w-fit rounded-lg p-1.5 px-3 {['/admin', '/admin/'].includes($page.url.pathname)
 						? 'bg-gray-50 dark:bg-gray-850'
 						: ''} transition"
-					href="/admin">{$i18n.t('Dashboard')}</a
+					href="/sensai/admin">{$i18n.t('Dashboard')}</a
 				>
 
 				<a
 					class="min-w-fit rounded-lg p-1.5 px-3 {$page.url.pathname.includes('/admin/settings')
 						? 'bg-gray-50 dark:bg-gray-850'
 						: ''} transition"
-					href="/admin/settings">{$i18n.t('Settings')}</a
+					href="/sensai/admin/settings">{$i18n.t('Settings')}</a
 				>
 
 				<!-- <a
 				class="min-w-fit rounded-lg p-1.5 px-3 {$page.url.pathname.includes('/workspace/documents')
 					? 'bg-gray-50 dark:bg-gray-850'
 					: ''} transition"
-				href="/workspace/documents"
+				href="/sensai/workspace/documents"
 			>
 				{$i18n.t('Documents')}
 			</a>
@@ -80,7 +80,7 @@
 				class="min-w-fit rounded-lg p-1.5 px-3 {$page.url.pathname.includes('/workspace/playground')
 					? 'bg-gray-50 dark:bg-gray-850'
 					: ''} transition"
-				href="/workspace/playground">{$i18n.t('Playground')}</a
+				href="/sensai/workspace/playground">{$i18n.t('Playground')}</a
 			> -->
 			</div>
 		</div>

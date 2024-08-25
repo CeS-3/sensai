@@ -213,7 +213,7 @@
 			if ($chatId === id) {
 				await chatId.set('');
 				await tick();
-				goto('/');
+				goto('/sensai/');
 			}
 
 			allChatsLoaded = false;
@@ -273,11 +273,11 @@
 			<a
 				id="sidebar-new-chat-button"
 				class="flex flex-1 justify-between rounded-xl px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
-				href="/"
+				href="/sensai/"
 				draggable="false"
 				on:click={async () => {
 					selectedChatId = null;
-					await goto('/');
+					await goto('/sensai/');
 					const newChatButton = document.getElementById('new-chat-button');
 					setTimeout(() => {
 						newChatButton?.click();
@@ -344,7 +344,7 @@
 			<div class="px-2.5 flex justify-center text-gray-800 dark:text-gray-200">
 				<a
 					class="flex-grow flex space-x-3 rounded-xl px-2.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
-					href="/workspace"
+					href="/sensai/workspace"
 					on:click={() => {
 						selectedChatId = null;
 						chatId.set('');

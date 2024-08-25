@@ -281,7 +281,7 @@ class Pipe:
 				<button
 					class="flex space-x-1"
 					on:click={() => {
-						goto('/workspace/functions');
+						goto('/sensai/workspace/functions');
 					}}
 					type="button"
 				>

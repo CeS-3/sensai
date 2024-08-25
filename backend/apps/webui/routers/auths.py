@@ -27,7 +27,6 @@ from utils.utils import (
     get_password_hash,
     get_current_user,
     get_admin_user,
-    create_token,
     create_api_key,
 )
 from utils.misc import parse_duration, validate_email_format
@@ -50,17 +49,6 @@ router = APIRouter()
 async def get_session_user(
     request: Request, response: Response, user=Depends(get_current_user)
 ):
-    token = create_token(
-        data={"id": user.id},
-        expires_delta=parse_duration(request.app.state.config.JWT_EXPIRES_IN),
-    )
-
-    # Set the cookie token
-    response.set_cookie(
-        key="token",
-        value=token,
-        httponly=True,  # Ensures the cookie is not accessible via JavaScript
-    )
 
     return {
         "id": user.id,
@@ -122,62 +110,19 @@ async def update_password(
 
 
 @router.post("/signin", response_model=SigninResponse)
-async def signin(request: Request, response: Response, form_data: SigninForm):
-    if WEBUI_AUTH_TRUSTED_EMAIL_HEADER:
-        if WEBUI_AUTH_TRUSTED_EMAIL_HEADER not in request.headers:
-            raise HTTPException(400, detail=ERROR_MESSAGES.INVALID_TRUSTED_HEADER)
-
-        trusted_email = request.headers[WEBUI_AUTH_TRUSTED_EMAIL_HEADER].lower()
-        trusted_name = trusted_email
-        if WEBUI_AUTH_TRUSTED_NAME_HEADER:
-            trusted_name = request.headers.get(
-                WEBUI_AUTH_TRUSTED_NAME_HEADER, trusted_email
-            )
-        if not Users.get_user_by_email(trusted_email.lower()):
-            await signup(
-                request,
-                response,
-                SignupForm(
-                    email=trusted_email, password=str(uuid.uuid4()), name=trusted_name
-                ),
-            )
-        user = Auths.authenticate_user_by_trusted_header(trusted_email)
-    elif WEBUI_AUTH == False:
-        admin_email = "admin@localhost"
-        admin_password = "admin"
-
-        if Users.get_user_by_email(admin_email.lower()):
-            user = Auths.authenticate_user(admin_email.lower(), admin_password)
-        else:
-            if Users.get_num_users() != 0:
-                raise HTTPException(400, detail=ERROR_MESSAGES.EXISTING_USERS)
-
-            await signup(
-                request,
-                response,
-                SignupForm(email=admin_email, password=admin_password, name="User"),
-            )
-
-            user = Auths.authenticate_user(admin_email.lower(), admin_password)
-    else:
-        user = Auths.authenticate_user(form_data.email.lower(), form_data.password)
+async def signin(request: Request, response: Response):
+    # use Authorization from upstream instead of the original from data
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
+        raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authorization header missing"
+    )
+    user_type, user_id, user_name, user_email, user_password = auth_header.split(';')
+    user = Auths.authenticate_user(user_email.lower(), user_password)
 
     if user:
-        token = create_token(
-            data={"id": user.id},
-            expires_delta=parse_duration(request.app.state.config.JWT_EXPIRES_IN),
-        )
-
-        # Set the cookie token
-        response.set_cookie(
-            key="token",
-            value=token,
-            httponly=True,  # Ensures the cookie is not accessible via JavaScript
-        )
-
         return {
-            "token": token,
-            "token_type": "Bearer",
             "id": user.id,
             "email": user.email,
             "name": user.name,
@@ -195,48 +140,41 @@ async def signin(request: Request, response: Response, form_data: SigninForm):
 
 @router.post("/signup", response_model=SigninResponse)
 async def signup(request: Request, response: Response, form_data: SignupForm):
-    if not request.app.state.config.ENABLE_SIGNUP and WEBUI_AUTH:
+    # use Authorization from upstream
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
         raise HTTPException(
-            status.HTTP_403_FORBIDDEN, detail=ERROR_MESSAGES.ACCESS_PROHIBITED
-        )
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authorization header missing"
+    )
+    user_type, user_id, user_name, user_email, user_password = auth_header.split(';')
 
-    if not validate_email_format(form_data.email.lower()):
+    if not validate_email_format(user_email.lower()):
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST, detail=ERROR_MESSAGES.INVALID_EMAIL_FORMAT
         )
 
-    if Users.get_user_by_email(form_data.email.lower()):
+    if Users.get_user_by_email(user_email.lower()):
         raise HTTPException(400, detail=ERROR_MESSAGES.EMAIL_TAKEN)
 
+    # Set the user role based on the user_type
     try:
         role = (
             "admin"
-            if Users.get_num_users() == 0
+            if user_type.lower() == "admin"
             else request.app.state.config.DEFAULT_USER_ROLE
         )
-        hashed = get_password_hash(form_data.password)
+        hashed = get_password_hash(user_password)
         user = Auths.insert_new_auth(
-            form_data.email.lower(),
+            user_id,
+            user_email.lower(),
             hashed,
-            form_data.name,
-            form_data.profile_image_url,
+            user_name,
+            form_data.profile_image_url,  # but still use the old image
             role,
         )
 
         if user:
-            token = create_token(
-                data={"id": user.id},
-                expires_delta=parse_duration(request.app.state.config.JWT_EXPIRES_IN),
-            )
-            # response.set_cookie(key='token', value=token, httponly=True)
-
-            # Set the cookie token
-            response.set_cookie(
-                key="token",
-                value=token,
-                httponly=True,  # Ensures the cookie is not accessible via JavaScript
-            )
-
             if request.app.state.config.WEBHOOK_URL:
                 post_webhook(
                     request.app.state.config.WEBHOOK_URL,
@@ -249,8 +187,6 @@ async def signup(request: Request, response: Response, form_data: SignupForm):
                 )
 
             return {
-                "token": token,
-                "token_type": "Bearer",
                 "id": user.id,
                 "email": user.email,
                 "name": user.name,
@@ -292,10 +228,7 @@ async def add_user(form_data: AddUserForm, user=Depends(get_admin_user)):
         )
 
         if user:
-            token = create_token(data={"id": user.id})
             return {
-                "token": token,
-                "token_type": "Bearer",
                 "id": user.id,
                 "email": user.email,
                 "name": user.name,

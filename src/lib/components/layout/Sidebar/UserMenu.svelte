@@ -84,7 +84,7 @@
 				<button
 					class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 					on:click={() => {
-						goto('/playground');
+						goto('/sensai/playground');
 						show = false;
 					}}
 				>
@@ -110,7 +110,7 @@
 				<button
 					class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 					on:click={() => {
-						goto('/admin');
+						goto('/sensai/admin');
 						show = false;
 					}}
 				>
@@ -140,7 +140,7 @@
 				class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 				on:click={() => {
 					localStorage.removeItem('token');
-					location.href = '/auth';
+					location.href = '/sensai/auth';
 					show = false;
 				}}
 			>

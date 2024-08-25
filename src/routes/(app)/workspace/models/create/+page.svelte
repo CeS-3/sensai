@@ -146,7 +146,7 @@
 				...info,
 				meta: {
 					...info.meta,
-					profile_image_url: info.meta.profile_image_url ?? '/static/favicon.png',
+					profile_image_url: info.meta.profile_image_url ?? '/sensai/static/favicon.png',
 					suggestion_prompts: info.meta.suggestion_prompts
 						? info.meta.suggestion_prompts.filter((prompt) => prompt.content !== '')
 						: null
@@ -157,7 +157,7 @@
 			if (res) {
 				await models.set(await getModels(localStorage.token));
 				toast.success($i18n.t('Model created successfully!'));
-				await goto('/workspace/models');
+				await goto('/sensai/workspace/models');
 			}
 		}
 
@@ -334,7 +334,7 @@
 	<button
 		class="flex space-x-1"
 		on:click={() => {
-			goto('/workspace/models');
+			goto('/sensai/workspace/models');
 		}}
 	>
 		<div class=" self-center">

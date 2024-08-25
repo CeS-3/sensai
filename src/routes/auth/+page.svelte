@@ -22,29 +22,25 @@
 		if (sessionUser) {
 			console.log(sessionUser);
 			toast.success($i18n.t(`You're now logged in.`));
-			if (sessionUser.token) {
-				localStorage.token = sessionUser.token;
-			}
 
 			$socket.emit('user-join', { auth: { token: sessionUser.token } });
 			await user.set(sessionUser);
-			goto('/');
+			goto('/sensai/');
 		}
 	};
 
 	const signInHandler = async () => {
-		const sessionUser = await userSignIn(email, password).catch((error) => {
-			toast.error(error);
-			return null;
+		const sessionUser = await userSignIn().catch((error) => {
+			signUpHandler();
 		});
 
 		await setSessionUser(sessionUser);
 	};
 
 	const signUpHandler = async () => {
-		const sessionUser = await userSignUp(name, email, password, generateInitialsImage(name)).catch(
+		const sessionUser = await userSignUp(generateInitialsImage(name)).catch(
 			(error) => {
-				toast.error(error);
+				console.error(error);
 				return null;
 			}
 		);
@@ -73,7 +69,7 @@
 		if (!token) {
 			return;
 		}
-		const sessionUser = await getSessionUser(token).catch((error) => {
+		const sessionUser = await getSessionUser().catch((error) => {
 			toast.error(error);
 			return null;
 		});
@@ -86,13 +82,10 @@
 
 	onMount(async () => {
 		if ($user !== undefined) {
-			await goto('/');
+			await goto('/sensai/');
 		}
-		await checkOauthCallback();
-		loaded = true;
-		if (($config?.features.auth_trusted_header ?? false) || $config?.features.auth === false) {
-			await signInHandler();
-		}
+		loaded = false;
+		await signInHandler();
 	});
 </script>
 

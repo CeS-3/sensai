@@ -74,27 +74,18 @@ def get_http_authorization_cred(auth_header: str):
 
 def get_current_user(
     request: Request,
-    auth_token: HTTPAuthorizationCredentials = Depends(bearer_security),
+    auth_token: HTTPAuthorizationCredentials
 ):
-    token = None
-
-    if auth_token is not None:
-        token = auth_token.credentials
-
-    if token is None and "token" in request.cookies:
-        token = request.cookies.get("token")
-
-    if token is None:
-        raise HTTPException(status_code=403, detail="Not authenticated")
-
-    # auth by api key
-    if token.startswith("sk-"):
-        return get_current_user_by_api_key(token)
-
-    # auth by jwt token
-    data = decode_token(token)
-    if data is not None and "id" in data:
-        user = Users.get_user_by_id(data["id"])
+    # use Authorization from upstream
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
+        raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authorization header missing"
+    )
+    user_type, user_id, user_name, user_email, user_password = auth_header.split(';')
+    if user_id is not None:
+        user = Users.get_user_by_id(user_id)
         if user is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,

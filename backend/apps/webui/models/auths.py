@@ -57,7 +57,7 @@ class UserResponse(BaseModel):
     profile_image_url: str
 
 
-class SigninResponse(Token, UserResponse):
+class SigninResponse(UserResponse):
     pass
 
 
@@ -95,6 +95,7 @@ class AuthsTable:
 
     def insert_new_auth(
         self,
+        id: str,
         email: str,
         password: str,
         name: str,
@@ -105,9 +106,6 @@ class AuthsTable:
         with get_db() as db:
 
             log.info("insert_new_auth")
-
-            id = str(uuid.uuid4())
-
             auth = AuthModel(
                 **{"id": id, "email": email, "password": password, "active": True}
             )

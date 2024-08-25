@@ -7,8 +7,8 @@ export const getModels = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -78,8 +78,8 @@ export const chatCompleted = async (token: string, body: ChatCompletedForm) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify(body)
 	})
@@ -117,8 +117,8 @@ export const chatAction = async (token: string, action_id: string, body: ChatAct
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify(body)
 	})
@@ -150,8 +150,8 @@ export const getTaskConfig = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -178,8 +178,8 @@ export const updateTaskConfig = async (token: string, config: object) => {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify(config)
 	})
@@ -216,8 +216,7 @@ export const generateTitle = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			model: model,
@@ -256,8 +255,7 @@ export const generateEmoji = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			model: model,
@@ -304,8 +302,7 @@ export const generateSearchQuery = async (
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			model: model,
@@ -339,8 +336,8 @@ export const getPipelinesList = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -372,7 +369,7 @@ export const uploadPipeline = async (token: string, file: File, urlIdx: string) 
 	const res = await fetch(`${WEBUI_BASE_URL}/api/pipelines/upload`, {
 		method: 'POST',
 		headers: {
-			...(token && { authorization: `Bearer ${token}` })
+
 			// 'Content-Type': 'multipart/form-data' is not needed as Fetch API will set it automatically
 		},
 		body: formData
@@ -405,8 +402,8 @@ export const downloadPipeline = async (token: string, url: string, urlIdx: strin
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			url: url,
@@ -441,8 +438,8 @@ export const deletePipeline = async (token: string, id: string, urlIdx: string) 
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			id: id,
@@ -482,8 +479,8 @@ export const getPipelines = async (token: string, urlIdx?: string) => {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		}
 	})
 		.then(async (res) => {
@@ -518,8 +515,8 @@ export const getPipelineValves = async (token: string, pipeline_id: string, urlI
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				...(token && { authorization: `Bearer ${token}` })
+				'Content-Type': 'application/json'
+	
 			}
 		}
 	)
@@ -554,8 +551,8 @@ export const getPipelineValvesSpec = async (token: string, pipeline_id: string, 
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				...(token && { authorization: `Bearer ${token}` })
+				'Content-Type': 'application/json'
+	
 			}
 		}
 	)
@@ -595,8 +592,8 @@ export const updatePipelineValves = async (
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				...(token && { authorization: `Bearer ${token}` })
+				'Content-Type': 'application/json'
+	
 			},
 			body: JSON.stringify(valves)
 		}
@@ -707,8 +704,7 @@ export const getModelFilterConfig = async (token: string) => {
 	const res = await fetch(`${WEBUI_BASE_URL}/api/config/model/filter`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		}
 	})
 		.then(async (res) => {
@@ -738,8 +734,7 @@ export const updateModelFilterConfig = async (
 	const res = await fetch(`${WEBUI_BASE_URL}/api/config/model/filter`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			enabled: enabled,
@@ -769,8 +764,7 @@ export const getWebhookUrl = async (token: string) => {
 	const res = await fetch(`${WEBUI_BASE_URL}/api/webhook`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		}
 	})
 		.then(async (res) => {
@@ -796,8 +790,7 @@ export const updateWebhookUrl = async (token: string, url: string) => {
 	const res = await fetch(`${WEBUI_BASE_URL}/api/webhook`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			url: url
@@ -826,8 +819,7 @@ export const getCommunitySharingEnabledStatus = async (token: string) => {
 	const res = await fetch(`${WEBUI_BASE_URL}/api/community_sharing`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		}
 	})
 		.then(async (res) => {
@@ -853,8 +845,7 @@ export const toggleCommunitySharingEnabledStatus = async (token: string) => {
 	const res = await fetch(`${WEBUI_BASE_URL}/api/community_sharing/toggle`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		}
 	})
 		.then(async (res) => {
@@ -880,8 +871,7 @@ export const getModelConfig = async (token: string): Promise<GlobalModelConfig> 
 	const res = await fetch(`${WEBUI_BASE_URL}/api/config/models`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		}
 	})
 		.then(async (res) => {
@@ -924,8 +914,7 @@ export const updateModelConfig = async (token: string, config: GlobalModelConfig
 	const res = await fetch(`${WEBUI_BASE_URL}/api/config/models`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			models: config

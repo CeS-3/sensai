@@ -6,8 +6,8 @@ export const getAdminDetails = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/admin/details`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -33,8 +33,8 @@ export const getAdminConfig = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/admin/config`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -60,8 +60,8 @@ export const updateAdminConfig = async (token: string, body: object) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/admin/config`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify(body)
 	})
@@ -82,14 +82,14 @@ export const updateAdminConfig = async (token: string, body: object) => {
 	return res;
 };
 
-export const getSessionUser = async (token: string) => {
+export const getSessionUser = async () => {
 	let error = null;
 
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		credentials: 'include'
 	})
@@ -110,7 +110,7 @@ export const getSessionUser = async (token: string) => {
 	return res;
 };
 
-export const userSignIn = async (email: string, password: string) => {
+export const userSignIn = async () => {
 	let error = null;
 
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signin`, {
@@ -119,10 +119,6 @@ export const userSignIn = async (email: string, password: string) => {
 			'Content-Type': 'application/json'
 		},
 		credentials: 'include',
-		body: JSON.stringify({
-			email: email,
-			password: password
-		})
 	})
 		.then(async (res) => {
 			if (!res.ok) throw await res.json();
@@ -143,9 +139,6 @@ export const userSignIn = async (email: string, password: string) => {
 };
 
 export const userSignUp = async (
-	name: string,
-	email: string,
-	password: string,
 	profile_image_url: string
 ) => {
 	let error = null;
@@ -157,9 +150,9 @@ export const userSignUp = async (
 		},
 		credentials: 'include',
 		body: JSON.stringify({
-			name: name,
-			email: email,
-			password: password,
+			name: '',
+			email: '',
+			password: '',
 			profile_image_url: profile_image_url
 		})
 	})
@@ -192,8 +185,8 @@ export const addUser = async (
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/add`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			name: name,
@@ -225,8 +218,8 @@ export const updateUserProfile = async (token: string, name: string, profileImag
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/update/profile`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			name: name,
@@ -256,8 +249,8 @@ export const updateUserPassword = async (token: string, password: string, newPas
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/update/password`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			'Content-Type': 'application/json'
+
 		},
 		body: JSON.stringify({
 			password: password,
@@ -287,8 +280,8 @@ export const getSignUpEnabledStatus = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signup/enabled`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -314,8 +307,8 @@ export const getDefaultUserRole = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signup/user/role`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -341,8 +334,8 @@ export const updateDefaultUserRole = async (token: string, role: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signup/user/role`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			role: role
@@ -371,8 +364,8 @@ export const toggleSignUpEnabledStatus = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signup/enabled/toggle`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -398,8 +391,8 @@ export const getJWTExpiresDuration = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/token/expires`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -425,8 +418,8 @@ export const updateJWTExpiresDuration = async (token: string, duration: string) 
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/token/expires/update`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		},
 		body: JSON.stringify({
 			duration: duration
@@ -455,8 +448,8 @@ export const createAPIKey = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/api_key`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -480,8 +473,8 @@ export const getAPIKey = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/api_key`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
@@ -505,8 +498,8 @@ export const deleteAPIKey = async (token: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/api_key`, {
 		method: 'DELETE',
 		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			'Content-Type': 'application/json'
+			
 		}
 	})
 		.then(async (res) => {
