@@ -25,7 +25,7 @@
 
 			$socket.emit('user-join', { auth: { token: sessionUser.token } });
 			await user.set(sessionUser);
-			goto('/sensai');
+			goto('/sensai/');
 		}
 	};
 
