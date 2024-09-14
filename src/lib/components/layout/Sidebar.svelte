@@ -200,7 +200,7 @@
 	const saveSettings = async (updated) => {
 		await settings.set({ ...$settings, ...updated });
 		await updateUserSettings(localStorage.token, { ui: $settings });
-		location.href = '/';
+		location.href = '/sensai/';
 	};
 
 	const deleteChatHandler = async (id) => {

@@ -47,7 +47,7 @@
 						<button
 							class="relative z-20 flex px-5 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition font-medium text-sm"
 							on:click={() => {
-								location.href = '/';
+								location.href = '/sensai/';
 							}}
 						>
 							{$i18n.t('Check Again')}
