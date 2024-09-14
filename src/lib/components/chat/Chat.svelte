@@ -391,7 +391,7 @@
 				timestamp: m.timestamp
 			})),
 			chat_id: chatId,
-			session_id: $socket?.id,
+			session_id: $socket?.id ?? 'unknown',
 			id: responseMessageId
 		}).catch((error) => {
 			toast.error(error);
