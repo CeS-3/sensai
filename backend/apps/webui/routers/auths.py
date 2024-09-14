@@ -162,7 +162,7 @@ async def signup(request: Request, response: Response, form_data: SignupForm):
         role = (
             "admin"
             if user_type.lower() == "admin"
-            else request.app.state.config.DEFAULT_USER_ROLE
+            else "user"
         )
         hashed = get_password_hash(user_password)
         user = Auths.insert_new_auth(
