@@ -73,8 +73,7 @@ def get_http_authorization_cred(auth_header: str):
 
 
 def get_current_user(
-    request: Request,
-    auth_token: HTTPAuthorizationCredentials
+    request: Request
 ):
     # use Authorization from upstream
     auth_header = request.headers.get("Authorization")

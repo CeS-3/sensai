@@ -230,8 +230,7 @@ async def get_body_and_model_and_user(request):
     model = app.state.MODELS[model_id]
 
     user = get_current_user(
-        request,
-        get_http_authorization_cred(request.headers.get("Authorization")),
+        request
     )
 
     return body, model, user
@@ -831,8 +830,7 @@ class PipelineMiddleware(BaseHTTPMiddleware):
             data = json.loads(body_str) if body_str else {}
 
             user = get_current_user(
-                request,
-                get_http_authorization_cred(request.headers.get("Authorization")),
+                request
             )
 
             try:
@@ -1116,29 +1114,43 @@ async def generate_chat_completions(form_data: dict, user=Depends(get_verified_u
 
 @app.post("/api/chat/completed")
 async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
+    print(f"Received form_data: {form_data}")
+    print(f"Authenticated user: {user}")
+
     data = form_data
     model_id = data["model"]
+    print(f"Model ID: {model_id}")
+
     if model_id not in app.state.MODELS:
+        print("Model not found, raising 404")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Model not found",
         )
+    
     model = app.state.MODELS[model_id]
+    print(f"Loaded model: {model}")
 
     sorted_filters = get_sorted_filters(model_id)
+    print(f"Sorted filters: {sorted_filters}")
+
     if "pipeline" in model:
         sorted_filters = [model] + sorted_filters
+        print(f"Pipeline detected, updated sorted_filters: {sorted_filters}")
 
     for filter in sorted_filters:
         r = None
         try:
             urlIdx = filter["urlIdx"]
+            print(f"Processing filter: {filter}, URL index: {urlIdx}")
 
             url = openai_app.state.config.OPENAI_API_BASE_URLS[urlIdx]
             key = openai_app.state.config.OPENAI_API_KEYS[urlIdx]
+            print(f"API URL: {url}, API Key: {key}")
 
             if key != "":
                 headers = {"Authorization": f"Bearer {key}"}
+                print(f"Request headers: {headers}")
                 r = requests.post(
                     f"{url}/{filter['id']}/filter/outlet",
                     headers=headers,
@@ -1152,26 +1164,26 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
                         "body": data,
                     },
                 )
-
+                print(f"Response from filter: {r.status_code}, {r.text}")
                 r.raise_for_status()
                 data = r.json()
+                print(f"Updated data: {data}")
         except Exception as e:
-            # Handle connection error here
             print(f"Connection error: {e}")
-
             if r is not None:
                 try:
                     res = r.json()
                     if "detail" in res:
+                        print(f"Error detail in response: {res}")
                         return JSONResponse(
                             status_code=r.status_code,
                             content=res,
                         )
-                except Exception:
-                    pass
-
+                except Exception as ex:
+                    print(f"Error while parsing response JSON: {ex}")
             else:
-                pass
+                print("No response object available")
+            pass
 
     __event_emitter__ = get_event_emitter(
         {
@@ -1180,6 +1192,7 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
             "session_id": data["session_id"],
         }
     )
+    print(f"Event emitter created: {__event_emitter__}")
 
     __event_call__ = get_event_call(
         {
@@ -1188,6 +1201,7 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
             "session_id": data["session_id"],
         }
     )
+    print(f"Event call created: {__event_call__}")
 
     def get_priority(function_id):
         function = Functions.get_function_by_id(function_id)
@@ -1196,24 +1210,32 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
         return 0
 
     filter_ids = [function.id for function in Functions.get_global_filter_functions()]
+    print(f"Global filter function IDs: {filter_ids}")
+
     if "info" in model and "meta" in model["info"]:
         filter_ids.extend(model["info"]["meta"].get("filterIds", []))
         filter_ids = list(set(filter_ids))
+        print(f"Extended filter IDs from model info: {filter_ids}")
 
     enabled_filter_ids = [
         function.id
         for function in Functions.get_functions_by_type("filter", active_only=True)
     ]
+    print(f"Enabled filter function IDs: {enabled_filter_ids}")
+
     filter_ids = [
         filter_id for filter_id in filter_ids if filter_id in enabled_filter_ids
     ]
+    print(f"Filtered enabled function IDs: {filter_ids}")
 
     # Sort filter_ids by priority, using the get_priority function
     filter_ids.sort(key=get_priority)
+    print(f"Sorted filter IDs by priority: {filter_ids}")
 
     for filter_id in filter_ids:
         filter = Functions.get_function_by_id(filter_id)
         if not filter:
+            print(f"Filter not found for ID: {filter_id}")
             continue
 
         if filter_id in webui_app.state.FUNCTIONS:
@@ -1221,23 +1243,25 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
         else:
             function_module, _, _ = load_function_module_by_id(filter_id)
             webui_app.state.FUNCTIONS[filter_id] = function_module
+        print(f"Loaded function module for filter ID: {filter_id}")
 
         if hasattr(function_module, "valves") and hasattr(function_module, "Valves"):
             valves = Functions.get_function_valves_by_id(filter_id)
             function_module.valves = function_module.Valves(
                 **(valves if valves else {})
             )
+            print(f"Set valves for function module: {function_module.valves}")
 
         if not hasattr(function_module, "outlet"):
+            print(f"No outlet function for filter ID: {filter_id}")
             continue
         try:
             outlet = function_module.outlet
+            print(f"Outlet function signature: {inspect.signature(outlet)}")
 
-            # Get the signature of the function
             sig = inspect.signature(outlet)
             params = {"body": data}
 
-            # Extra parameters to be passed to the function
             extra_params = {
                 "__model__": model,
                 "__id__": filter_id,
@@ -1245,7 +1269,6 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
                 "__event_call__": __event_call__,
             }
 
-            # Add extra params in contained in function signature
             for key, value in extra_params.items():
                 if key in sig.parameters:
                     params[key] = value
@@ -1257,7 +1280,6 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
                     "name": user.name,
                     "role": user.role,
                 }
-
                 try:
                     if hasattr(function_module, "UserValves"):
                         __user__["valves"] = function_module.UserValves(
@@ -1265,23 +1287,29 @@ async def chat_completed(form_data: dict, user=Depends(get_verified_user)):
                                 filter_id, user.id
                             )
                         )
+                    print(f"Set user valves: {__user__['valves']}")
                 except Exception as e:
-                    print(e)
+                    print(f"Error while setting user valves: {e}")
 
                 params = {**params, "__user__": __user__}
+
+            print(f"Final parameters for outlet: {params}")
 
             if inspect.iscoroutinefunction(outlet):
                 data = await outlet(**params)
             else:
                 data = outlet(**params)
 
+            print(f"Data after processing filter {filter_id}: {data}")
+
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Error in processing filter {filter_id}: {e}")
             return JSONResponse(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 content={"detail": str(e)},
             )
 
+    print(f"Final data returned: {data}")
     return data
 
 
